@@ -57,6 +57,11 @@
     </ApplicationDefinition>
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Models\Dto\DeliveryOilDto.cs" />
+    <Compile Include="Models\Enums\OperationType.cs" />
+    <Compile Include="Models\Validations\ProviderValidation.cs" />
+    <Compile Include="Models\Validations\StockValidation.cs" />
+    <Compile Include="Services\DeliveryService.cs" />
     <Compile Include="Services\ProviderService.cs" />
     <Compile Include="Services\StockService.cs" />
     <Compile Include="ViewModels\FormHomeViewModel.cs" />
@@ -64,12 +69,16 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\ProviderFormViewModel.cs" />
     <Compile Include="ViewModels\StockFormViewModel.cs" />
     <Compile Include="Views\FormHomeView.xaml.cs">
       <DependentUpon>FormHomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProviderFormView.xaml.cs">
+      <DependentUpon>ProviderFormView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StockFormView.xaml.cs">
       <DependentUpon>StockFormView.xaml</DependentUpon>
@@ -94,6 +103,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ProviderFormView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\StockFormView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -104,7 +117,7 @@
     <Compile Include="Models\Delivery.cs" />
     <Compile Include="Models\Provider.cs" />
     <Compile Include="Models\Stock.cs" />
-    <Compile Include="Models\StockMeasure.cs" />
+    <Compile Include="Models\Enums\StockMeasure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -130,8 +143,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Dto\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

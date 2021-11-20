@@ -18,6 +18,7 @@ namespace goods.ViewModels
         public FormHomeViewModel(NavigationStore navigationStore)
         {
             NavigationStocksCommand = new NavigateCommand<StockFormViewModel>(navigationStore, (n) => new StockFormViewModel(n));
+            NavigationProvidersCommand = new NavigateCommand<ProviderFormViewModel>(navigationStore, (n) => new ProviderFormViewModel(n));
             NavigationBackCommand = new NavigateCommand<HomeViewModel>(navigationStore, (n) => new HomeViewModel(n));
         }
     }

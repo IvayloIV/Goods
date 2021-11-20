@@ -2,7 +2,7 @@
 
 namespace goods.Models
 {
-    class Provider : BaseModel
+    public class Provider : BaseModel
     {
         private string id;
         private string name;

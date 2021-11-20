@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="goods.Views.StockFormView"
+﻿<UserControl x:Class="goods.Views.ProviderFormView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -23,7 +23,7 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Стока"
+        <TextBlock Text="Доставчик"
                    Grid.Row="0"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
@@ -32,73 +32,63 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"/>
 
-        <TextBlock Text="Стока:"
+        <TextBlock Text="Доставчик:"
                    Grid.Row="1"
                    Grid.Column="0"
                    VerticalAlignment="Top"
                    Margin="5,0,5,0"/>
-        <TextBlock Text="Име на стоката:"
+        <TextBlock Text="Име на доставчика:"
                    Grid.Row="2"
                    Grid.Column="0"
                    VerticalAlignment="Top"
                    Margin="5,0,5,0"/>
-        <TextBlock Text="Дата на създаване:"
+        <TextBlock Text="Адрес на доставчика:"
                    Grid.Row="3"
                    Grid.Column="0"
                    VerticalAlignment="Top"
                    Margin="5,0,5,0"/>
-        <TextBlock Text="Валидност (в дни):"
+        <TextBlock Text="Телефон:"
                    Grid.Row="4"
                    Grid.Column="0"
                    VerticalAlignment="Top"
                    Margin="5,0,5,0"/>
-        <TextBlock Text="Цена:"
+        <TextBlock Text="Лице за контакти:"
                    Grid.Row="5"
                    Grid.Column="0"
                    VerticalAlignment="Top"
                    Margin="5,0,5,0"/>
-        <TextBlock Text="Мярка количество:"
-                   Grid.Row="6"
-                   Grid.Column="0"
-                   VerticalAlignment="Top"
-                   Margin="5,0,5,0"/>
-        <ComboBox SelectedValue="{Binding SelectedStockValue}"
+        <ComboBox SelectedValue="{Binding SelectedProviderValue}"
                 Margin="5,0,5,8"
                 Grid.Row="1"
                 Grid.Column="1"
-                ItemsSource="{Binding StockValues}"/>
+                ItemsSource="{Binding ProviderValues}"/>
         <StackPanel Orientation = "Vertical" Grid.Row="2" Grid.Column="1">
             <TextBox Name ="txtName"
                  Margin="5,0,5,0"
-                 Text="{Binding Path=Stock.Name, Mode=TwoWay}"/>
-            <TextBlock Text="{Binding Path=StockValidation.NameError}"
+                 Text="{Binding Path=Provider.Name, Mode=TwoWay}"/>
+            <TextBlock Text="{Binding Path=ProviderValidation.NameError}"
                    Margin="5,0,5,0"/>
         </StackPanel>
         <StackPanel Orientation = "Vertical" Grid.Row="3" Grid.Column="1">
-            <DatePicker Name="txtCreationDate"
+            <TextBox Name="txtAddress"
                     Margin="5,0,5,0"
-                    SelectedDate="{Binding Path=Stock.CreationDate, Mode=TwoWay}"/>
-            <TextBlock Text="{Binding Path=StockValidation.CreationDateError}"
+                    Text="{Binding Path=Provider.Address, Mode=TwoWay}"/>
+            <TextBlock Text="{Binding Path=ProviderValidation.AddressError}"
                    Margin="5,0,5,0"/>
         </StackPanel>
         <StackPanel Orientation = "Vertical" Grid.Row="4" Grid.Column="1">
-            <TextBox Name ="txtDaysValidTo"
+            <TextBox Name ="txtPhone"
                  Margin="5,0,5,0"
-                 Text="{Binding Path=Stock.DaysValidTo, Mode=TwoWay}"/>
-            <TextBlock Text="{Binding Path=StockValidation.DaysValidToError}"
+                 Text="{Binding Path=Provider.Phone, Mode=TwoWay}"/>
+            <TextBlock Text="{Binding Path=ProviderValidation.PhoneError}"
                    Margin="5,0,5,0"/>
         </StackPanel>
         <StackPanel Orientation = "Vertical" Grid.Row="5" Grid.Column="1">
-            <TextBox Name ="txtPrice"
+            <TextBox Name ="txtContactPerson"
                  Margin="5,0,5,0"
-                 Text="{Binding Path=Stock.Price, Mode=TwoWay}"/>
-            <TextBlock Text="{Binding Path=StockValidation.PriceError}"
+                 Text="{Binding Path=Provider.ContactPerson, Mode=TwoWay}"/>
+            <TextBlock Text="{Binding Path=ProviderValidation.ContactPersonError}"
                    Margin="5,0,5,0"/>
-        </StackPanel>
-        <StackPanel Orientation = "Vertical" Grid.Row="6" Grid.Column="1">
-            <ComboBox SelectedValue="{Binding SelectedMeasure}"
-                   Margin="5,0,5,8"
-                  ItemsSource="{Binding Measures}"/>
         </StackPanel>
         <StackPanel Orientation = "Vertical" Grid.Row="7" Grid.Column="1">
             <Button Name="btnCreate"

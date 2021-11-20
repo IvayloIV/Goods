@@ -4,14 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goods.Models
+namespace goods.Models.Enums
 {
-    public enum StockMeasure
+    public enum OperationType
     {
-        Count,
-        Kilograms,
-        Liters,
-        Meters,
-        Packages
+        Създаване,
+        Редактиране
     }
 }

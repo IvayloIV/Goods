@@ -2,7 +2,7 @@
 
 namespace goods.Models
 {
-    class Delivery : BaseModel
+    public class Delivery : BaseModel
     {
         private string stockId;
         private string providerId;
