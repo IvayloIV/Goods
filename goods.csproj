@@ -59,6 +59,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Models\Dto\DeliveryOilDto.cs" />
     <Compile Include="Models\Enums\OperationType.cs" />
+    <Compile Include="Models\Validations\DeliveryValidation.cs" />
     <Compile Include="Models\Validations\ProviderValidation.cs" />
     <Compile Include="Models\Validations\StockValidation.cs" />
     <Compile Include="Services\DeliveryService.cs" />

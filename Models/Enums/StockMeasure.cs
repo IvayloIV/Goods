@@ -8,7 +8,7 @@ namespace goods.Models
 {
     public enum StockMeasure
     {
-        Брой,
+        Броя,
         Килограми,
         Литри,
         Метри,

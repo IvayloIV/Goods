@@ -63,7 +63,7 @@ namespace goods.Services
                 Stock stock = stockService.FindById(delivery.StockId);
                 Provider provider = providerService.FindById(delivery.ProviderId);
 
-                if ((stock.Name == null || stock.Name.Equals(stockName))
+                if ((stockName == null || stock.Name.Equals(stockName))
                     && delivery.DeliveryDate.CompareTo(deliveryDate) < 0
                     && (providerId == null || provider.Id.Equals(providerId)))
                 {

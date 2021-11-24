@@ -12,7 +12,7 @@ namespace goods.Services
         private static List<Stock> stocks = new List<Stock>()
         {
             new Stock() { Id="1", Name="Олио", CreationDate=DateTime.Now.AddDays(-3), DaysValidTo=7, Price=4.5, Measure=StockMeasure.Литри },
-            new Stock() { Id="2", Name="Яйце", CreationDate=DateTime.Now.AddDays(-5), DaysValidTo=10, Price=0.4, Measure=StockMeasure.Брой },
+            new Stock() { Id="2", Name="Яйце", CreationDate=DateTime.Now.AddDays(-5), DaysValidTo=10, Price=0.4, Measure=StockMeasure.Броя },
             new Stock() { Id="3", Name="Хляб", CreationDate=DateTime.Now.AddDays(-2), DaysValidTo=5, Price=1.2, Measure=StockMeasure.Килограми },
             new Stock() { Id="4", Name="Сирене", CreationDate=DateTime.Now.AddDays(-2), DaysValidTo=3, Price=6.2, Measure=StockMeasure.Килограми },
             new Stock() { Id="5", Name="Бира", CreationDate=DateTime.Now.AddDays(-1), DaysValidTo=20, Price=2.5, Measure=StockMeasure.Литри }
@@ -36,7 +36,7 @@ namespace goods.Services
 
         public Stock FindById(string id)
         {
-            return stocks.Find(s => s.Id == id);
+            return stocks.Find(s => s.Id.Equals(id));
         }
 
         public List<Stock> GetAll()

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:goods.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -13,103 +13,180 @@
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Доставчик"
-                   Grid.Row="0"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"/>
-
-        <TextBlock Text="Доставчик:"
-                   Grid.Row="1"
-                   Grid.Column="0"
-                   VerticalAlignment="Top"
-                   Margin="5,0,5,0"/>
-        <TextBlock Text="Име на доставчика:"
-                   Grid.Row="2"
-                   Grid.Column="0"
-                   VerticalAlignment="Top"
-                   Margin="5,0,5,0"/>
-        <TextBlock Text="Адрес на доставчика:"
-                   Grid.Row="3"
-                   Grid.Column="0"
-                   VerticalAlignment="Top"
-                   Margin="5,0,5,0"/>
-        <TextBlock Text="Телефон:"
-                   Grid.Row="4"
-                   Grid.Column="0"
-                   VerticalAlignment="Top"
-                   Margin="5,0,5,0"/>
-        <TextBlock Text="Лице за контакти:"
-                   Grid.Row="5"
-                   Grid.Column="0"
-                   VerticalAlignment="Top"
-                   Margin="5,0,5,0"/>
-        <ComboBox SelectedValue="{Binding SelectedProviderValue}"
-                Margin="5,0,5,8"
-                Grid.Row="1"
-                Grid.Column="1"
-                ItemsSource="{Binding ProviderValues}"/>
-        <StackPanel Orientation = "Vertical" Grid.Row="2" Grid.Column="1">
-            <TextBox Name ="txtName"
-                 Margin="5,0,5,0"
-                 Text="{Binding Path=Provider.Name, Mode=TwoWay}"/>
-            <TextBlock Text="{Binding Path=ProviderValidation.NameError}"
-                   Margin="5,0,5,0"/>
-        </StackPanel>
-        <StackPanel Orientation = "Vertical" Grid.Row="3" Grid.Column="1">
-            <TextBox Name="txtAddress"
-                    Margin="5,0,5,0"
-                    Text="{Binding Path=Provider.Address, Mode=TwoWay}"/>
-            <TextBlock Text="{Binding Path=ProviderValidation.AddressError}"
-                   Margin="5,0,5,0"/>
-        </StackPanel>
-        <StackPanel Orientation = "Vertical" Grid.Row="4" Grid.Column="1">
-            <TextBox Name ="txtPhone"
-                 Margin="5,0,5,0"
-                 Text="{Binding Path=Provider.Phone, Mode=TwoWay}"/>
-            <TextBlock Text="{Binding Path=ProviderValidation.PhoneError}"
-                   Margin="5,0,5,0"/>
-        </StackPanel>
-        <StackPanel Orientation = "Vertical" Grid.Row="5" Grid.Column="1">
-            <TextBox Name ="txtContactPerson"
-                 Margin="5,0,5,0"
-                 Text="{Binding Path=Provider.ContactPerson, Mode=TwoWay}"/>
-            <TextBlock Text="{Binding Path=ProviderValidation.ContactPersonError}"
-                   Margin="5,0,5,0"/>
-        </StackPanel>
-        <StackPanel Orientation = "Vertical" Grid.Row="7" Grid.Column="1">
-            <Button Name="btnCreate"
-                Content="{Binding LabelText}"
-                Height="40"
-                Width="160"
-                Margin="8"
-                HorizontalAlignment="Left"
-                Command="{Binding Path=CreateCommand}"/>
-            <TextBlock Text="{Binding Path=SuccessMessage}"
-                   Margin="8 0"/>
-        </StackPanel>
         <Button Name="btnBack"
                 Grid.Row="0"
                 Grid.Column="0"
                 Content="Назад"
-                Height="30"
+                Height="20"
                 Width="55"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left"
                 Margin="10"
                 Command="{Binding Path=NavigationBackCommand}"/>
+
+        <TextBlock Text="Доставчик"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+
+        <StackPanel Orientation = "Vertical" Grid.Row="1" Grid.Column="0">
+            <TextBlock Text="Доставчик:"
+                   Margin="5,0,5,0"/>
+            <ComboBox SelectedValue="{Binding SelectedProviderValue}"
+                Margin="5,1,5,8"
+                Grid.Row="1"
+                Grid.Column="1"
+                ItemsSource="{Binding ProviderValues}"/>
+        </StackPanel>
+        <StackPanel Orientation = "Vertical" Grid.Row="2" Grid.Column="0">
+            <TextBlock Text="Име на доставчика:"
+                   Margin="5,0,5,0"/>
+            <TextBox Name ="txtName"
+                 Margin="5,1,5,0"
+                 Text="{Binding Path=Provider.Name, Mode=TwoWay}"/>
+            <TextBlock Text="{Binding Path=ProviderValidation.NameError}"
+                   Margin="5,0,5,0"/>
+        </StackPanel>
+        <StackPanel Orientation = "Vertical" Grid.Row="3" Grid.Column="0">
+            <TextBlock Text="Адрес на доставчика:"
+                   Margin="5,0,5,0"/>
+            <TextBox Name="txtAddress"
+                    Margin="5,1,5,0"
+                    Text="{Binding Path=Provider.Address, Mode=TwoWay}"/>
+            <TextBlock Text="{Binding Path=ProviderValidation.AddressError}"
+                   Margin="5,0,5,0"/>
+        </StackPanel>
+        <StackPanel Orientation = "Vertical" Grid.Row="4" Grid.Column="0">
+            <TextBlock Text="Телефон:"
+                   Margin="5,0,5,0"/>
+            <TextBox Name ="txtPhone"
+                 Margin="5,1,5,0"
+                 Text="{Binding Path=Provider.Phone, Mode=TwoWay}"/>
+            <TextBlock Text="{Binding Path=ProviderValidation.PhoneError}"
+                   Margin="5,0,5,0"/>
+        </StackPanel>
+        <StackPanel Orientation = "Vertical" Grid.Row="5" Grid.Column="0">
+            <TextBlock Text="Лице за контакти:"
+                   Margin="5,0,5,0"/>
+            <TextBox Name ="txtContactPerson"
+                 Margin="5,1,5,0"
+                 Text="{Binding Path=Provider.ContactPerson, Mode=TwoWay}"/>
+            <TextBlock Text="{Binding Path=ProviderValidation.ContactPersonError}"
+                   Margin="5,0,5,0"/>
+        </StackPanel>
+        <StackPanel Orientation = "Vertical" Grid.Row="6" Grid.Column="0">
+            <Button Name="btnCreate"
+                Content="{Binding LabelText}"
+                Height="40"
+                Width="160"
+                Margin="8"
+                HorizontalAlignment="Center"
+                Command="{Binding Path=CreateProviderCommand}"/>
+            <TextBlock Text="{Binding Path=SuccessMessage}"
+                   Margin="8 0"/>
+        </StackPanel>
+        <DataGrid Name="dgDeliveries"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  Grid.Row="7"
+                  Grid.Column="0"
+                  Margin="5,8,5,8"
+                  Visibility="{Binding DeliveryVisible}"
+                  ItemsSource="{Binding Path=DeliveryOilDtos, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Код на доставчика"
+                                    Width="auto"
+                                    Binding="{Binding Path=ProviderId}"/>
+                <DataGridTextColumn Header="Име на стоката"
+                                    Width="auto"
+                                    Binding="{Binding Path=StockName}"/>
+                <DataGridTextColumn Header="Цена с ДДС"
+                                    Width="auto"
+                                    Binding="{Binding Path=PriceVAT, StringFormat=N2}"/>
+                <DataGridTextColumn Header="Количество"
+                                    Width="auto"
+                                    Binding="{Binding Path=QuantityValue}"/>
+                <DataGridTextColumn Header="Дата на доставка"
+                                    Width="auto"
+                                    Binding="{Binding Path=DeliveryDate, StringFormat=d, ConverterCulture=bg-BG}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock Text="Доставка"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Visibility="{Binding DeliveryVisible}"/>
+
+        <StackPanel Orientation = "Vertical" Grid.Row="1" Grid.Column="1" Visibility="{Binding DeliveryVisible}">
+            <TextBlock Text="Доставка (Номер - Име - Цена без ДДС):"
+                   Margin="5,0,5,0"/>
+            <ComboBox SelectedValue="{Binding SelectedDeliveryValue}"
+                Margin="5,1,5,8"
+                ItemsSource="{Binding DeliveryValues}"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" Visibility="{Binding DeliveryVisible}">
+            <TextBlock Text="Номер на документа:"
+                   Margin="5,0,5,0"/>
+            <TextBox Name ="txtDocumentNumber"
+                 Margin="5,1,5,0"
+                 Text="{Binding Path=Delivery.DocumentNumber, Mode=TwoWay}"/>
+            <TextBlock Text="{Binding Path=DeliveryValidation.DocumentNumberError}"
+                   Margin="5,0,5,0"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1" Visibility="{Binding DeliveryVisible}">
+            <TextBlock Text="Дата на доставка:"
+                   Margin="5,0,5,0"/>
+            <DatePicker Name="txtDeliveryDate"
+                    Margin="5,1,5,0"
+                    SelectedDate="{Binding Path=Delivery.DeliveryDate, Mode=TwoWay}"/>
+            <TextBlock Text="{Binding Path=DeliveryValidation.DeliveryDateError}"
+                   Margin="5,0,5,0"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1" Visibility="{Binding DeliveryVisible}">
+            <TextBlock Text="Количество:"
+                   Margin="5,0,5,0"/>
+            <TextBox Name ="txtQuantity"
+                 Margin="5,1,5,0"
+                 Text="{Binding Path=Delivery.Quantity, Mode=TwoWay}"/>
+            <TextBlock Text="{Binding Path=DeliveryValidation.QuantityError}"
+                   Margin="5,0,5,0"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="5" Grid.Column="1" Visibility="{Binding StockVisible}">
+            <TextBlock Text="Стока (Номер - Име - Цена без ДДС - Мярка):"
+                       Visibility="{Binding DeliveryVisible}"
+                   Margin="5,0,5,0"/>
+            <ComboBox SelectedValue="{Binding SelectedStockValue}"
+                Margin="5,1,5,8"
+                Visibility="{Binding DeliveryVisible}"
+                ItemsSource="{Binding StockValues}"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="1" Visibility="{Binding DeliveryVisible}">
+            <Button Name="btnCreateDelivery"
+                Content="{Binding LabelTextDelivery}"
+                Height="40"
+                Width="160"
+                Margin="8"
+                HorizontalAlignment="Center"
+                Command="{Binding Path=CreateDeliveryCommand}"/>
+            <TextBlock Text="{Binding Path=SuccessMessageDelivery}"
+                   Margin="8 0"/>
+        </StackPanel>
     </Grid>
 </UserControl>

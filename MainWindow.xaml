@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:goods"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Стоки"
         xmlns:views="clr-namespace:goods.Views"
         xmlns:viewmodels="clr-namespace:goods.ViewModels"
-        Height="450"
+        Height="500"
         Width="800">
         <ContentControl Content="{Binding CurrentViewModel}">
             <ContentControl.Resources>
