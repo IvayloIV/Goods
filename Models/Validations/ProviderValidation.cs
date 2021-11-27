@@ -57,9 +57,9 @@ namespace goods.Models
                 AddressError = string.Empty;
             }
 
-            if (provider.Phone == null || provider.Phone.Length <= 2) //TODO: create a valid regular expression
+            if (provider.Phone == null || provider.Phone.Length != 10)
             {
-                PhoneError = "Телефонът на доставчика трябва да е поне три символа.";
+                PhoneError = "Телефонът на доставчика трябва да е точно 10 символа.";
                 hasErrors = true;
             }
             else

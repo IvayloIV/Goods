@@ -114,8 +114,8 @@ namespace goods.ViewModels
             if (!selectedStockValue.Equals(ADD_NEW_STOCK))
             {
                 string stockId = selectedStockValue.Split('-')[0].Trim();
-                Stock = stockService.FindById(stockId);
-                SelectedMeasure = Enum.GetName(typeof(StockMeasure), Stock.Measure);
+                Stock = stockService.FindById(int.Parse(stockId));
+                SelectedMeasure = Stock.Measure.ToString();
                 LabelText = Enum.GetName(typeof(OperationType), OperationType.Редактиране);
             }
             else
@@ -130,7 +130,7 @@ namespace goods.ViewModels
         {
             if (!StockValidation.ValidateStock(Stock))
             {
-                Stock.Measure = (StockMeasure) Enum.Parse(typeof(StockMeasure), SelectedMeasure);
+                Stock.Measure = SelectedMeasure;
                 if (!selectedStockValue.Equals(ADD_NEW_STOCK))
                 {
                     stockService.Update(Stock);

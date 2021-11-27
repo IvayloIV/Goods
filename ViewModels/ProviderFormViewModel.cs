@@ -71,7 +71,7 @@ namespace goods.ViewModels
         private void InitDeliveryOilDtos()
         {
             //TODO: create button for delivery date
-            if (Provider.Id != null)
+            if (Provider.Id != 0)
             {
                 List<DeliveryOilDto> deliveries = deliveryService.GetDeliveryOilDtos(null, DateTime.MaxValue, Provider.Id);
                 DeliveryOilDtos = new ObservableCollection<DeliveryOilDto>(deliveries);
@@ -101,7 +101,7 @@ namespace goods.ViewModels
         private void UpdateDeliveryValues(string defaultValue)
         {
             DeliveryValues = new ObservableCollection<string>();
-            if (Provider.Id != null)
+            if (Provider.Id != 0)
             {
                 foreach (Delivery delivery in deliveryService.FindByProviderId(Provider.Id))
                 {
@@ -115,10 +115,10 @@ namespace goods.ViewModels
 
         private void InitStock()
         {
-            if (Provider.Id != null)
+            if (Provider.Id != 0)
             {
                 StockValues = new ObservableCollection<string>();
-                List<string> stockIdsByProvider = deliveryService
+                List<long> stockIdsByProvider = deliveryService
                     .FindByProviderId(Provider.Id)
                     .Select(p => p.StockId)
                     .ToList();
@@ -265,7 +265,7 @@ namespace goods.ViewModels
             if (!selectedProviderValue.Equals(ADD_NEW_PROVIDER))
             {
                 string providerId = selectedProviderValue.Split('-')[0].Trim();
-                Provider = providerService.FindById(providerId);
+                Provider = providerService.FindById(int.Parse(providerId));
                 LabelText = Enum.GetName(typeof(OperationType), OperationType.Редактиране);
                 DeliveryVisible = "Visible";
             }
@@ -279,14 +279,13 @@ namespace goods.ViewModels
 
         private void SwapDelivery(string selectedDeliveryValue)
         {
-            //TODO: да направя етикет колко вместо "Количество" -> "Количество (Брой)"
             SuccessMessageDelivery = string.Empty;
             DeliveryValidation = new DeliveryValidation();
 
             if (selectedDeliveryValue != null && !selectedDeliveryValue.Equals(ADD_NEW_DELIVERY))
             {
                 string stockId = selectedDeliveryValue.Split('-')[0].Trim();
-                Delivery = deliveryService.FindByProviderIdAndStockId(Provider.Id, stockId);
+                Delivery = deliveryService.FindByProviderIdAndStockId(Provider.Id, int.Parse(stockId));
                 LabelTextDelivery = Enum.GetName(typeof(OperationType), OperationType.Редактиране);
                 StockVisible = "Hidden";
             }
@@ -341,7 +340,7 @@ namespace goods.ViewModels
                     }
 
                     Delivery.ProviderId = Provider.Id;
-                    Delivery.StockId = SelectedStockValue.Split('-')[0].Trim();
+                    Delivery.StockId = int.Parse(SelectedStockValue.Split('-')[0].Trim());
                     deliveryService.Save(Delivery);
                     InitDelivery();
                     SelectedDeliveryValue = ADD_NEW_DELIVERY;

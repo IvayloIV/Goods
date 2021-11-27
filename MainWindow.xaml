@@ -24,6 +24,12 @@
             <DataTemplate DataType="{x:Type viewmodels:ProviderFormViewModel}">
                 <views:ProviderFormView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:ReportHomeViewModel}">
+                <views:ReportHomeView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DeliveryReportViewModel}">
+                <views:DeliveryReportView/>
+            </DataTemplate>
         </ContentControl.Resources>
         </ContentControl>
 </Window>

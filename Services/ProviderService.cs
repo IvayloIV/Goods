@@ -9,19 +9,17 @@ namespace goods.Services
 {
     public class ProviderService
     {
-        private static List<Provider> providers = new List<Provider>()
+        private readonly GoodsContext goodsContext;
+
+        public ProviderService()
         {
-            new Provider() { Id="1", Name="Иванов ЕОД", Address="Николаевска 12", Phone="0892423124", ContactPerson="Иван Иванов" },
-            new Provider() { Id="2", Name="Стефанови ЕОД", Address="Ивановска 44", Phone="0883442334", ContactPerson="Стефан Петров" },
-            new Provider() { Id="3", Name="Петрови ЕОД", Address="Стамболийска 18", Phone="0893452367", ContactPerson="Петър Иванов" },
-            new Provider() { Id="4", Name="Мая ЕОД", Address="Петровска 23", Phone="0897005345", ContactPerson="Мая Маринова" },
-            new Provider() { Id="5", Name="Георгиев ЕОД", Address="Обеля 11", Phone="0893442576", ContactPerson="Георги Георгиев" }
-        };
+            goodsContext = new GoodsContext();
+        }
 
         public void Save(Provider provider)
         {
-            provider.Id = (providers.Count + 1).ToString();
-            providers.Add(provider);
+            goodsContext.Providers.Add(provider);
+            goodsContext.SaveChanges();
         }
 
         public void Update(Provider provider)
@@ -31,16 +29,17 @@ namespace goods.Services
             currentProvider.Address = provider.Address;
             currentProvider.Phone = provider.Phone;
             currentProvider.ContactPerson = provider.ContactPerson;
+            goodsContext.SaveChanges();
         }
 
-        public Provider FindById(string id)
+        public Provider FindById(long id)
         {
-            return providers.Find(s => s.Id == id);
+            return goodsContext.Providers.Find(id);
         }
 
         public List<Provider> GetAll()
         {
-            return providers;
+            return goodsContext.Providers.ToList();
         }
     }
 }

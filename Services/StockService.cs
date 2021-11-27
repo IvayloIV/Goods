@@ -1,4 +1,5 @@
 ﻿using goods.Models;
+using goods.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +10,17 @@ namespace goods.Services
 {
     public class StockService
     {
-        private static List<Stock> stocks = new List<Stock>()
+        private readonly GoodsContext goodsContext;
+
+        public StockService()
         {
-            new Stock() { Id="1", Name="Олио", CreationDate=DateTime.Now.AddDays(-3), DaysValidTo=7, Price=4.5, Measure=StockMeasure.Литри },
-            new Stock() { Id="2", Name="Яйце", CreationDate=DateTime.Now.AddDays(-5), DaysValidTo=10, Price=0.4, Measure=StockMeasure.Броя },
-            new Stock() { Id="3", Name="Хляб", CreationDate=DateTime.Now.AddDays(-2), DaysValidTo=5, Price=1.2, Measure=StockMeasure.Килограми },
-            new Stock() { Id="4", Name="Сирене", CreationDate=DateTime.Now.AddDays(-2), DaysValidTo=3, Price=6.2, Measure=StockMeasure.Килограми },
-            new Stock() { Id="5", Name="Бира", CreationDate=DateTime.Now.AddDays(-1), DaysValidTo=20, Price=2.5, Measure=StockMeasure.Литри }
-        };
+            goodsContext = new GoodsContext();
+        }
 
         public void Save(Stock stock)
         {
-            stock.Id = (stocks.Count + 1).ToString();
-            stocks.Add(stock);
+            goodsContext.Stocks.Add(stock);
+            goodsContext.SaveChanges();
         }
 
         public void Update(Stock stock)
@@ -32,16 +31,47 @@ namespace goods.Services
             currentStock.DaysValidTo = stock.DaysValidTo;
             currentStock.Price = stock.Price;
             currentStock.Measure = stock.Measure;
+            goodsContext.SaveChanges();
         }
 
-        public Stock FindById(string id)
+        public Stock FindById(long id)
         {
-            return stocks.Find(s => s.Id.Equals(id));
+            return goodsContext.Stocks.Find(id);
         }
 
         public List<Stock> GetAll()
         {
-            return stocks;
+            return goodsContext.Stocks.ToList();
+        }
+
+        public List<StockSummaryDto> GetStockSummary(string name, string measure)
+        {
+            IQueryable<Stock> query = goodsContext.Stocks
+                .Include("Deliveries");
+
+            if (name != null)
+            {
+                query = query.Where(s => s.Name.Equals(name));
+            }
+
+            if (measure != null)
+            {
+                query = query.Where(s => s.Measure.Equals(measure));
+            }
+
+            return query.GroupBy(s => new { s.Name, s.Price, s.Measure })
+                .Select(s =>
+                    new
+                    {
+                        name = s.Key.Name,
+                        price = s.Key.Price,
+                        measure = s.Key.Measure,
+                        deliveryCount = s.Sum(d => d.Deliveries.Count()),
+                        totalQuantity = s.Sum(d => d.Deliveries.Sum(de => de.Quantity)),
+                    })
+                .ToList()
+                .Select(s => new StockSummaryDto(s.name, s.price, s.measure, s.deliveryCount, s.totalQuantity))
+                .ToList();
         }
     }
 }
