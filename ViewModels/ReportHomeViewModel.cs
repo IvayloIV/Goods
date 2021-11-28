@@ -12,11 +12,13 @@ namespace goods.ViewModels
     public class ReportHomeViewModel : BaseViewModel
     {
         public ICommand NavigationDeliveriesCommand { get; }
+        public ICommand NavigationStocksCommand { get; }
         public ICommand NavigationBackCommand { get; }
 
         public ReportHomeViewModel(NavigationStore navigationStore)
         {
             NavigationDeliveriesCommand = new NavigateCommand<DeliveryReportViewModel>(navigationStore, (n) => new DeliveryReportViewModel(n));
+            NavigationStocksCommand = new NavigateCommand<StockReportViewModel>(navigationStore, (n) => new StockReportViewModel(n));
             NavigationBackCommand = new NavigateCommand<HomeViewModel>(navigationStore, (n) => new HomeViewModel(n));
         }
     }

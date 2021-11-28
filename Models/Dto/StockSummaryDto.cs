@@ -16,9 +16,9 @@ namespace goods.Models.Dto
 
         public int DeliveryCount { get; set; }
 
-        public double TotalQuantity { get; set; }
+        public int TotalQuantity { get; set; }
 
-        public StockSummaryDto(string name, double price, string measure, int deliveryCount, double totalQuantity)
+        public StockSummaryDto(string name, double price, string measure, int deliveryCount, int totalQuantity)
         {
             this.Name = name;
             this.Price = price;

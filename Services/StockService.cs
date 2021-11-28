@@ -49,12 +49,12 @@ namespace goods.Services
             IQueryable<Stock> query = goodsContext.Stocks
                 .Include("Deliveries");
 
-            if (name != null)
+            if (name != null && name.Length > 0)
             {
                 query = query.Where(s => s.Name.Equals(name));
             }
 
-            if (measure != null)
+            if (measure != null && measure.Length > 0)
             {
                 query = query.Where(s => s.Measure.Equals(measure));
             }

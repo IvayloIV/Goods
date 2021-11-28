@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="goods.Views.DeliveryReportView"
+﻿<UserControl x:Class="goods.Views.StockReportView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -58,11 +58,11 @@
                  Text="{Binding Path=StockName, Mode=TwoWay}"/>
         </StackPanel>
         <StackPanel Orientation = "Vertical" Grid.Row="2" Grid.Column="0">
-            <TextBlock Text="Дата на доставка до:"
+            <TextBlock Text="Мярка:"
                    Margin="5,0,5,0"/>
-            <DatePicker Name="txtDeliveryDate"
-                    Margin="5,1,5,0"
-                    SelectedDate="{Binding Path=DeliveryDate, Mode=TwoWay}"/>
+            <ComboBox SelectedValue="{Binding SelectedMeasure}"
+                Margin="5,1,5,8"
+                ItemsSource="{Binding Measures}"/>
         </StackPanel>
         <Button Name="btnSearch"
                 Grid.Row="3"
@@ -74,7 +74,7 @@
                 HorizontalAlignment="Center"
                 Command="{Binding Path=SearchCommand}"/>
 
-        <TextBlock Text="Доставки"
+        <TextBlock Text="Стоки"
                    Grid.Row="0"
                    Grid.Column="1"
                    FontSize="24"
@@ -82,30 +82,30 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"/>
 
-        <DataGrid Name="dgDeliveries"
+        <DataGrid Name="dgStocks"
                   IsReadOnly="True"
                   AutoGenerateColumns="False"
                   Grid.Row="1"
                   Grid.Column="1"
                   Grid.RowSpan="4"
                   Margin="5,8,5,8"
-                  ItemsSource="{Binding Path=DeliveriesOilDto, Mode=TwoWay}">
+                  ItemsSource="{Binding Path=StockSummaryDtos, Mode=TwoWay}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Код на доставчика"
+                <DataGridTextColumn Header="Име на стока"
                                     Width="auto"
-                                    Binding="{Binding Path=ProviderId}"/>
-                <DataGridTextColumn Header="Име на стоката"
+                                    Binding="{Binding Path=Name}"/>
+                <DataGridTextColumn Header="Цена"
                                     Width="auto"
-                                    Binding="{Binding Path=StockName}"/>
-                <DataGridTextColumn Header="Цена с ДДС"
+                                    Binding="{Binding Path=Price, StringFormat=N2}"/>
+                <DataGridTextColumn Header="Мярка количество"
                                     Width="auto"
-                                    Binding="{Binding Path=PriceVAT, StringFormat=N2}"/>
-                <DataGridTextColumn Header="Количество"
+                                    Binding="{Binding Path=Measure}"/>
+                <DataGridTextColumn Header="Брой доставки"
                                     Width="auto"
-                                    Binding="{Binding Path=QuantityValue}"/>
-                <DataGridTextColumn Header="Дата на доставка"
+                                    Binding="{Binding Path=DeliveryCount}"/>
+                <DataGridTextColumn Header="Общо доставено количество"
                                     Width="auto"
-                                    Binding="{Binding Path=DeliveryDate, StringFormat=d, ConverterCulture=bg-BG}"/>
+                                    Binding="{Binding Path=TotalQuantity}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

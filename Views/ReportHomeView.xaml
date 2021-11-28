@@ -27,7 +27,7 @@
                 Width="180"
                 Height="50"
                 Grid.Row="1"
-                Command="{Binding Path=NavigationProvidersCommand}"/>
+                Command="{Binding Path=NavigationStocksCommand}"/>
 
         <Button Name="btnBack"
                 Content="Назад"

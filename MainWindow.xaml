@@ -10,7 +10,10 @@
         xmlns:viewmodels="clr-namespace:goods.ViewModels"
         Height="500"
         Width="800">
-        <ContentControl Content="{Binding CurrentViewModel}">
+    <Window.Background>
+        <ImageBrush ImageSource="/Images/BackgroundImg.jpg" Stretch="Fill"></ImageBrush>
+    </Window.Background>
+    <ContentControl Content="{Binding CurrentViewModel}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
                     <views:HomeView/>
@@ -29,6 +32,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:DeliveryReportViewModel}">
                 <views:DeliveryReportView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:StockReportViewModel}">
+                <views:StockReportView/>
             </DataTemplate>
         </ContentControl.Resources>
         </ContentControl>

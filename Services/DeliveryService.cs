@@ -55,7 +55,7 @@ namespace goods.Services
         {
             IQueryable<Delivery> query = goodsContext.Deliveries
                 .Include("Stock")
-                .Where(d => d.DeliveryDate.CompareTo(deliveryDate) < 0);
+                .Where(d => d.DeliveryDate.CompareTo(deliveryDate) <= 0);
 
             if (stockName != null && stockName.Length > 0)
             {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace goods.ViewModels
@@ -19,6 +20,12 @@ namespace goods.ViewModels
         {
             NavigationFormInputCommand = new NavigateCommand<FormHomeViewModel>(navigationStore, (n) => new FormHomeViewModel(n));
             NavigationReportsCommand = new NavigateCommand<ReportHomeViewModel>(navigationStore, (n) => new ReportHomeViewModel(n));
+            NavigationExitCommand = new RelayCommand(CloseMainWindow);
+        }
+
+        private void CloseMainWindow()
+        {
+            Application.Current.MainWindow.Close();
         }
     }
 }
