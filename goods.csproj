@@ -129,15 +129,16 @@
     <Compile Include="Models\Dto\DeliveryOilDto.cs" />
     <Compile Include="Models\Dto\StockSummaryDto.cs" />
     <Compile Include="Models\Enums\OperationType.cs" />
-    <Compile Include="Models\GoodsContext.cs" />
+    <Compile Include="Dao\GoodsContext.cs" />
+    <Compile Include="Dao\GoodsContextSingleton.cs" />
     <Compile Include="Models\Provider.cs" />
     <Compile Include="Models\Stock.cs" />
     <Compile Include="Models\Validations\DeliveryValidation.cs" />
     <Compile Include="Models\Validations\ProviderValidation.cs" />
     <Compile Include="Models\Validations\StockValidation.cs" />
-    <Compile Include="Services\DeliveryService.cs" />
-    <Compile Include="Services\ProviderService.cs" />
-    <Compile Include="Services\StockService.cs" />
+    <Compile Include="Dao\DeliveryDao.cs" />
+    <Compile Include="Dao\ProviderDao.cs" />
+    <Compile Include="Dao\StockDao.cs" />
     <Compile Include="ViewModels\StockReportViewModel.cs" />
     <Compile Include="ViewModels\DeliveryReportViewModel.cs" />
     <Compile Include="ViewModels\ReportHomeViewModel.cs" />
@@ -241,6 +242,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\BackgroundImg.jpg" />
+    <Resource Include="Images\AppIcon.ico" />
     <Content Include="schema.sql" />
   </ItemGroup>
   <ItemGroup />

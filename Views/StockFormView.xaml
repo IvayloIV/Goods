@@ -9,24 +9,23 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="500"/>
         </Grid.ColumnDefinitions>
-        
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
+            <RowDefinition/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="Стока"
                    Grid.Row="0"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
+                   Grid.Column="1"
                    FontSize="24"
                    FontWeight="Bold"
                    Foreground="White"
@@ -82,7 +81,7 @@
                    FontSize="14"
                    Margin="5,0,5,0"/>
         <ComboBox SelectedValue="{Binding SelectedStockValue}"
-                Margin="5,0,5,8"
+                Margin="5,0,5,20"
                 Grid.Row="1"
                 Grid.Column="1"
                 ItemsSource="{Binding StockValues}"/>
@@ -91,43 +90,59 @@
                  Margin="5,0,5,0"
                  Text="{Binding Path=Stock.Name, Mode=TwoWay}"/>
             <TextBlock Text="{Binding Path=StockValidation.NameError}"
-                   Margin="5,0,5,0"/>
+                   Foreground="Red"
+                   FontStyle="Italic"
+                   FontSize="11"
+                   Margin="5,0,5,4"/>
         </StackPanel>
         <StackPanel Orientation = "Vertical" Grid.Row="3" Grid.Column="1">
             <DatePicker Name="txtCreationDate"
                     Margin="5,0,5,0"
                     SelectedDate="{Binding Path=Stock.CreationDate, Mode=TwoWay}"/>
             <TextBlock Text="{Binding Path=StockValidation.CreationDateError}"
-                   Margin="5,0,5,0"/>
+                   Foreground="Red"
+                   FontStyle="Italic"
+                   FontSize="11"
+                   Margin="5,0,5,4"/>
         </StackPanel>
         <StackPanel Orientation = "Vertical" Grid.Row="4" Grid.Column="1">
             <TextBox Name ="txtDaysValidTo"
                  Margin="5,0,5,0"
                  Text="{Binding Path=Stock.DaysValidTo, Mode=TwoWay}"/>
             <TextBlock Text="{Binding Path=StockValidation.DaysValidToError}"
-                   Margin="5,0,5,0"/>
+                   Foreground="Red"
+                   FontStyle="Italic"
+                   FontSize="11"
+                   Margin="5,0,5,4"/>
         </StackPanel>
         <StackPanel Orientation = "Vertical" Grid.Row="5" Grid.Column="1">
             <TextBox Name ="txtPrice"
                  Margin="5,0,5,0"
                  Text="{Binding Path=Stock.Price, Mode=TwoWay}"/>
             <TextBlock Text="{Binding Path=StockValidation.PriceError}"
-                   Margin="5,0,5,0"/>
+                   Foreground="Red"
+                   FontStyle="Italic"
+                   FontSize="11"
+                   Margin="5,0,5,4"/>
         </StackPanel>
         <StackPanel Orientation = "Vertical" Grid.Row="6" Grid.Column="1">
             <ComboBox SelectedValue="{Binding SelectedMeasure}"
-                   Margin="5,0,5,8"
+                   Margin="5,0,5,17"
                   ItemsSource="{Binding Measures}"/>
         </StackPanel>
         <StackPanel Orientation = "Vertical" Grid.Row="7" Grid.Column="1">
             <Button Name="btnCreate"
                 Content="{Binding LabelText}"
-                Height="40"
+                Height="30"
                 Width="160"
                 Margin="8"
                 HorizontalAlignment="Left"
                 Command="{Binding Path=CreateCommand}"/>
             <TextBlock Text="{Binding Path=SuccessMessage}"
+                   Foreground="Green"
+                   FontWeight="Bold"
+                   FontStyle="Italic"
+                   FontSize="11"
                    Margin="8 0"/>
         </StackPanel>
         <Button Name="btnBack"

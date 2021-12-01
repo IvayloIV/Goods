@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:goods"
         mc:Ignorable="d"
         Title="Стоки"
+        Icon="./Images/AppIcon.ico"
         xmlns:views="clr-namespace:goods.Views"
         xmlns:viewmodels="clr-namespace:goods.ViewModels"
-        Height="500"
-        Width="800">
+        Height="550"
+        Width="840">
     <Window.Background>
         <ImageBrush ImageSource="/Images/BackgroundImg.jpg" Stretch="Fill"></ImageBrush>
     </Window.Background>

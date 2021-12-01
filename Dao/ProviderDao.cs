@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goods.Services
+namespace goods.Dao
 {
-    public class ProviderService
+    public class ProviderDao
     {
         private readonly GoodsContext goodsContext;
 
-        public ProviderService()
+        public ProviderDao()
         {
-            goodsContext = new GoodsContext();
+            goodsContext = GoodsContextSingleton.GetContext();
         }
 
         public void Save(Provider provider)

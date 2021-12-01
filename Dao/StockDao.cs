@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goods.Services
+namespace goods.Dao
 {
-    public class StockService
+    public class StockDao
     {
         private readonly GoodsContext goodsContext;
 
-        public StockService()
+        public StockDao()
         {
-            goodsContext = new GoodsContext();
+            goodsContext = GoodsContextSingleton.GetContext();
         }
 
         public void Save(Stock stock)

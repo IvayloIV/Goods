@@ -1,8 +1,8 @@
 ﻿using goods.Commands;
+using goods.Dao;
 using goods.Models;
 using goods.Models.Dto;
 using goods.Models.Enums;
-using goods.Services;
 using goods.Stores;
 using System;
 using System.Collections.ObjectModel;
@@ -20,7 +20,7 @@ namespace goods.ViewModels
         private string[] measures;
         private string selectedMeasure;
         private string successMessage;
-        private StockService stockService;
+        private StockDao stockDao;
         private ObservableCollection<string> stockValues;
         private string selectedStockValue;
         private string labelText;
@@ -32,7 +32,7 @@ namespace goods.ViewModels
         {
             CreateCommand = new RelayCommand(Create);
             NavigationBackCommand = new NavigateCommand<FormHomeViewModel>(navigationStore, (n) => new FormHomeViewModel(n));
-            stockService = new StockService();
+            stockDao = new StockDao();
             measures = Enum.GetNames(typeof(StockMeasure));
             stockValidation = new StockValidation();
             InitStock();
@@ -49,7 +49,7 @@ namespace goods.ViewModels
 
         private void UpdateStockValus(string defaultValue)
         {
-            StockValues = new ObservableCollection<string>(stockService.GetAll().Select(a => $"{a.Id} - {a.Name}").ToList());
+            StockValues = new ObservableCollection<string>(stockDao.GetAll().Select(a => $"{a.Id} - {a.Name}").ToList());
             StockValues.Insert(0, ADD_NEW_STOCK);
             SelectedStockValue = defaultValue;
         }
@@ -114,7 +114,7 @@ namespace goods.ViewModels
             if (!selectedStockValue.Equals(ADD_NEW_STOCK))
             {
                 string stockId = selectedStockValue.Split('-')[0].Trim();
-                Stock = stockService.FindById(int.Parse(stockId));
+                Stock = stockDao.FindById(int.Parse(stockId));
                 SelectedMeasure = Stock.Measure.ToString();
                 LabelText = Enum.GetName(typeof(OperationType), OperationType.Редактиране);
             }
@@ -133,13 +133,13 @@ namespace goods.ViewModels
                 Stock.Measure = SelectedMeasure;
                 if (!selectedStockValue.Equals(ADD_NEW_STOCK))
                 {
-                    stockService.Update(Stock);
+                    stockDao.Update(Stock);
                     UpdateStockValus($"{Stock.Id} - {Stock.Name}");
                     SuccessMessage = "Успешно редактирахте стоката!";
                 }
                 else
                 {
-                    stockService.Save(Stock);
+                    stockDao.Save(Stock);
                     InitStock();
                     SelectedStockValue = ADD_NEW_STOCK;
                     SuccessMessage = "Успешно създадохте новата стока!";

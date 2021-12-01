@@ -1,10 +1,6 @@
 ﻿using goods.Commands;
+using goods.Dao;
 using goods.Stores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -25,6 +21,7 @@ namespace goods.ViewModels
 
         private void CloseMainWindow()
         {
+            GoodsContextSingleton.DestroyContext();
             Application.Current.MainWindow.Close();
         }
     }

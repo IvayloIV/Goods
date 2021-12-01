@@ -1,4 +1,6 @@
-﻿using goods.Stores;
+﻿using goods.Dao;
+using goods.Models;
+using goods.Stores;
 using goods.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,7 @@ namespace goods
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            GoodsContextSingleton.InitContext(new GoodsContext());
             NavigationStore navigationStore = new NavigationStore();
             navigationStore.CurrentViewModel = new HomeViewModel(navigationStore);
 

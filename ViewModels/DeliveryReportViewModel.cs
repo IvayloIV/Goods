@@ -1,6 +1,6 @@
 ﻿using goods.Commands;
+using goods.Dao;
 using goods.Models.Dto;
-using goods.Services;
 using goods.Stores;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using OfficeOpenXml;
@@ -23,8 +23,8 @@ namespace goods.ViewModels
         public RelayCommand ExcelExportCommand { get; }
         public ICommand NavigationBackCommand { get; }
 
-        private DeliveryService deliveryService;
-        private List<DeliveryOilDto> deliveriesOilDto;
+        private DeliveryDao deliveryDao;
+        private List<DeliveryOilDto> deliveriesOilDto; //TODO: Should be Observable??
 
         private string stockName;
         private DateTime deliveryDate;
@@ -34,10 +34,10 @@ namespace goods.ViewModels
             SearchCommand = new RelayCommand(Search);
             ExcelExportCommand = new RelayCommand(CreateExcelFile);
             NavigationBackCommand = new NavigateCommand<ReportHomeViewModel>(navigationStore, (n) => new ReportHomeViewModel(n));
-            deliveryService = new DeliveryService();
+            deliveryDao = new DeliveryDao();
             StockName = "Олио";
             DeliveryDate = DateTime.Now;
-            DeliveriesOilDto = deliveryService.GetDeliveryOilDtos(StockName, DeliveryDate, 0);
+            DeliveriesOilDto = deliveryDao.GetDeliveryOilDtos(StockName, DeliveryDate, 0);
         }
 
         public List<DeliveryOilDto> DeliveriesOilDto
@@ -60,7 +60,7 @@ namespace goods.ViewModels
 
         private void Search()
         {
-            DeliveriesOilDto = deliveryService.GetDeliveryOilDtos(StockName, DeliveryDate, 0);
+            DeliveriesOilDto = deliveryDao.GetDeliveryOilDtos(StockName, DeliveryDate, 0);
         }
 
         private void CreateExcelFile()

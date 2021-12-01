@@ -1,7 +1,7 @@
 ﻿using goods.Commands;
+using goods.Dao;
 using goods.Models;
 using goods.Models.Dto;
-using goods.Services;
 using goods.Stores;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using OfficeOpenXml;
@@ -26,7 +26,7 @@ namespace goods.ViewModels
         public RelayCommand ExcelExportCommand { get; }
         public ICommand NavigationBackCommand { get; }
 
-        private StockService stockService;
+        private StockDao stockDao;
         private List<StockSummaryDto> stockSummaryDtos;
 
         private string stockName;
@@ -38,11 +38,11 @@ namespace goods.ViewModels
             SearchCommand = new RelayCommand(Search);
             ExcelExportCommand = new RelayCommand(CreateExcelFile);
             NavigationBackCommand = new NavigateCommand<ReportHomeViewModel>(navigationStore, (n) => new ReportHomeViewModel(n));
-            stockService = new StockService();
+            stockDao = new StockDao();
             measures = Enum.GetNames(typeof(StockMeasure)).ToList();
             measures.Insert(0, ALL_STOCK_MEASURE);
             SelectedMeasure = measures[0];
-            StockSummaryDtos = stockService.GetStockSummary(StockName, null);
+            StockSummaryDtos = stockDao.GetStockSummary(StockName, null);
         }
 
         public List<StockSummaryDto> StockSummaryDtos
@@ -70,7 +70,7 @@ namespace goods.ViewModels
 
         private void Search()
         {
-            StockSummaryDtos = stockService.GetStockSummary(StockName, 
+            StockSummaryDtos = stockDao.GetStockSummary(StockName, 
                 SelectedMeasure.Equals(ALL_STOCK_MEASURE) ? null : SelectedMeasure);
         }
 

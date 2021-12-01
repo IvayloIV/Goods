@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goods.Services
+namespace goods.Dao
 {
-    public class DeliveryService
+    public class DeliveryDao
     {
         private readonly GoodsContext goodsContext;
 
-        public DeliveryService()
+        public DeliveryDao()
         {
-            goodsContext = new GoodsContext();
+            goodsContext = GoodsContextSingleton.GetContext();
         }
 
         public void Save(Delivery delivery)

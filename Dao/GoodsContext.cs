@@ -1,11 +1,12 @@
-﻿using System;
+﻿using goods.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goods.Models
+namespace goods.Dao
 {
     public class GoodsContext : DbContext
     {

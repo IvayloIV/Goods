@@ -1,8 +1,8 @@
 ﻿using goods.Commands;
+using goods.Dao;
 using goods.Models;
 using goods.Models.Dto;
 using goods.Models.Enums;
-using goods.Services;
 using goods.Stores;
 using System;
 using System.Collections.Generic;
@@ -18,13 +18,13 @@ namespace goods.ViewModels
         private const string ADD_NEW_DELIVERY = "-- Добави новa доставка --";
 
         private ObservableCollection<DeliveryOilDto> deliveryOilDtos;
-        private StockService stockService;
+        private StockDao stockDao;
 
         private Provider provider;
         private ProviderValidation providerValidation;
         private string successMessage;
-        private ProviderService providerService;
-        private DeliveryService deliveryService;
+        private ProviderDao providerDao;
+        private DeliveryDao deliveryDao;
         private ObservableCollection<string> providerValues;
         private string selectedProviderValue;
         private string labelText;
@@ -51,9 +51,9 @@ namespace goods.ViewModels
             CreateProviderCommand = new RelayCommand(CreateProvider);
             CreateDeliveryCommand = new RelayCommand(CreateDelivery);
             NavigationBackCommand = new NavigateCommand<FormHomeViewModel>(navigationStore, (n) => new FormHomeViewModel(n));
-            providerService = new ProviderService();
-            deliveryService = new DeliveryService();
-            stockService = new StockService();
+            providerDao = new ProviderDao();
+            deliveryDao = new DeliveryDao();
+            stockDao = new StockDao();
             providerValidation = new ProviderValidation();
             InitProvider();
             InitDelivery();
@@ -73,7 +73,7 @@ namespace goods.ViewModels
             //TODO: create button for delivery date
             if (Provider.Id != 0)
             {
-                List<DeliveryOilDto> deliveries = deliveryService.GetDeliveryOilDtos(null, DateTime.MaxValue, Provider.Id);
+                List<DeliveryOilDto> deliveries = deliveryDao.GetDeliveryOilDtos(null, DateTime.MaxValue, Provider.Id);
                 DeliveryOilDtos = new ObservableCollection<DeliveryOilDto>(deliveries);
             }
             else
@@ -93,7 +93,7 @@ namespace goods.ViewModels
 
         private void UpdateProviderValus(string defaultValue)
         {
-            ProviderValues = new ObservableCollection<string>(providerService.GetAll().Select(a => $"{a.Id} - {a.Name}").ToList());
+            ProviderValues = new ObservableCollection<string>(providerDao.GetAll().Select(a => $"{a.Id} - {a.Name}").ToList());
             ProviderValues.Insert(0, ADD_NEW_PROVIDER);
             SelectedProviderValue = defaultValue;
         }
@@ -103,9 +103,9 @@ namespace goods.ViewModels
             DeliveryValues = new ObservableCollection<string>();
             if (Provider.Id != 0)
             {
-                foreach (Delivery delivery in deliveryService.FindByProviderId(Provider.Id))
+                foreach (Delivery delivery in deliveryDao.FindByProviderId(Provider.Id))
                 {
-                    Stock stock = stockService.FindById(delivery.StockId);
+                    Stock stock = stockDao.FindById(delivery.StockId);
                     DeliveryValues.Add($"{stock.Id} - {stock.Name} - {stock.Price:F2}");
                 }
             }
@@ -118,12 +118,12 @@ namespace goods.ViewModels
             if (Provider.Id != 0)
             {
                 StockValues = new ObservableCollection<string>();
-                List<long> stockIdsByProvider = deliveryService
+                List<long> stockIdsByProvider = deliveryDao
                     .FindByProviderId(Provider.Id)
                     .Select(p => p.StockId)
                     .ToList();
 
-                foreach (Stock stock in stockService.GetAll())
+                foreach (Stock stock in stockDao.GetAll())
                 {
                     if (!stockIdsByProvider.Contains(stock.Id))
                     {
@@ -265,7 +265,7 @@ namespace goods.ViewModels
             if (!selectedProviderValue.Equals(ADD_NEW_PROVIDER))
             {
                 string providerId = selectedProviderValue.Split('-')[0].Trim();
-                Provider = providerService.FindById(int.Parse(providerId));
+                Provider = providerDao.FindById(int.Parse(providerId));
                 LabelText = Enum.GetName(typeof(OperationType), OperationType.Редактиране);
                 DeliveryVisible = "Visible";
             }
@@ -285,7 +285,7 @@ namespace goods.ViewModels
             if (selectedDeliveryValue != null && !selectedDeliveryValue.Equals(ADD_NEW_DELIVERY))
             {
                 string stockId = selectedDeliveryValue.Split('-')[0].Trim();
-                Delivery = deliveryService.FindByProviderIdAndStockId(Provider.Id, int.Parse(stockId));
+                Delivery = deliveryDao.FindByProviderIdAndStockId(Provider.Id, int.Parse(stockId));
                 LabelTextDelivery = Enum.GetName(typeof(OperationType), OperationType.Редактиране);
                 StockVisible = "Hidden";
             }
@@ -304,13 +304,13 @@ namespace goods.ViewModels
             {
                 if (!selectedProviderValue.Equals(ADD_NEW_PROVIDER))
                 {
-                    providerService.Update(Provider);
+                    providerDao.Update(Provider);
                     UpdateProviderValus($"{Provider.Id} - {Provider.Name}");
                     SuccessMessage = "Успешно редактирахте доставчика!";
                 }
                 else
                 {
-                    providerService.Save(Provider);
+                    providerDao.Save(Provider);
                     InitProvider();
                     SelectedProviderValue = ADD_NEW_PROVIDER;
                     SuccessMessage = "Успешно създадохте нов доставчик!";
@@ -328,7 +328,7 @@ namespace goods.ViewModels
             {
                 if (!selectedDeliveryValue.Equals(ADD_NEW_DELIVERY))
                 {
-                    deliveryService.Update(Delivery);
+                    deliveryDao.Update(Delivery);
                     SuccessMessageDelivery = "Успешно редактирахте доставката!";
                 }
                 else
@@ -341,7 +341,7 @@ namespace goods.ViewModels
 
                     Delivery.ProviderId = Provider.Id;
                     Delivery.StockId = int.Parse(SelectedStockValue.Split('-')[0].Trim());
-                    deliveryService.Save(Delivery);
+                    deliveryDao.Save(Delivery);
                     InitDelivery();
                     SelectedDeliveryValue = ADD_NEW_DELIVERY;
                     SuccessMessageDelivery = "Успешно създадохте нова доставка!";
