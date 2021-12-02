@@ -6,12 +6,9 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -24,7 +21,7 @@ namespace goods.ViewModels
         public ICommand NavigationBackCommand { get; }
 
         private DeliveryDao deliveryDao;
-        private List<DeliveryOilDto> deliveriesOilDto; //TODO: Should be Observable??
+        private ObservableCollection<DeliveryOilDto> deliveriesOilDto;
 
         private string stockName;
         private DateTime deliveryDate;
@@ -37,10 +34,10 @@ namespace goods.ViewModels
             deliveryDao = new DeliveryDao();
             StockName = "Олио";
             DeliveryDate = DateTime.Now;
-            DeliveriesOilDto = deliveryDao.GetDeliveryOilDtos(StockName, DeliveryDate, 0);
+            DeliveriesOilDto = new ObservableCollection<DeliveryOilDto>(deliveryDao.GetDeliveryOilDtos(StockName, DeliveryDate, 0));
         }
 
-        public List<DeliveryOilDto> DeliveriesOilDto
+        public ObservableCollection<DeliveryOilDto> DeliveriesOilDto
         {
             get { return deliveriesOilDto; }
             set { deliveriesOilDto = value; OnPropertyChanged(nameof(DeliveriesOilDto)); }
@@ -60,7 +57,7 @@ namespace goods.ViewModels
 
         private void Search()
         {
-            DeliveriesOilDto = deliveryDao.GetDeliveryOilDtos(StockName, DeliveryDate, 0);
+            DeliveriesOilDto = new ObservableCollection<DeliveryOilDto>(deliveryDao.GetDeliveryOilDtos(StockName, DeliveryDate, 0));
         }
 
         private void CreateExcelFile()

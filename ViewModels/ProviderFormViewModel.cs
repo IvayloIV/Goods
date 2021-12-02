@@ -70,7 +70,6 @@ namespace goods.ViewModels
 
         private void InitDeliveryOilDtos()
         {
-            //TODO: create button for delivery date
             if (Provider.Id != 0)
             {
                 List<DeliveryOilDto> deliveries = deliveryDao.GetDeliveryOilDtos(null, DateTime.MaxValue, Provider.Id);
@@ -312,7 +311,6 @@ namespace goods.ViewModels
                 {
                     providerDao.Save(Provider);
                     InitProvider();
-                    SelectedProviderValue = ADD_NEW_PROVIDER;
                     SuccessMessage = "Успешно създадохте нов доставчик!";
                 }
             }
@@ -343,7 +341,6 @@ namespace goods.ViewModels
                     Delivery.StockId = int.Parse(SelectedStockValue.Split('-')[0].Trim());
                     deliveryDao.Save(Delivery);
                     InitDelivery();
-                    SelectedDeliveryValue = ADD_NEW_DELIVERY;
                     SuccessMessageDelivery = "Успешно създадохте нова доставка!";
                 }
 

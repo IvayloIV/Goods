@@ -67,8 +67,9 @@ namespace goods.Dao
                         price = s.Key.Price,
                         measure = s.Key.Measure,
                         deliveryCount = s.Sum(d => d.Deliveries.Count()),
-                        totalQuantity = s.Sum(d => d.Deliveries.Sum(de => de.Quantity)),
+                        totalQuantity = s.Sum(d => d.Deliveries.Count() == 0 ? 0 : d.Deliveries.Sum(de => de.Quantity)),
                     })
+                .OrderBy(s => s.price)
                 .ToList()
                 .Select(s => new StockSummaryDto(s.name, s.price, s.measure, s.deliveryCount, s.totalQuantity))
                 .ToList();

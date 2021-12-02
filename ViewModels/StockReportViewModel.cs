@@ -7,12 +7,10 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -27,10 +25,10 @@ namespace goods.ViewModels
         public ICommand NavigationBackCommand { get; }
 
         private StockDao stockDao;
-        private List<StockSummaryDto> stockSummaryDtos;
+        private ObservableCollection<StockSummaryDto> stockSummaryDtos;
 
         private string stockName;
-        private List<string> measures;
+        private ObservableCollection<string> measures;
         private string selectedMeasure;
 
         public StockReportViewModel(NavigationStore navigationStore)
@@ -39,13 +37,13 @@ namespace goods.ViewModels
             ExcelExportCommand = new RelayCommand(CreateExcelFile);
             NavigationBackCommand = new NavigateCommand<ReportHomeViewModel>(navigationStore, (n) => new ReportHomeViewModel(n));
             stockDao = new StockDao();
-            measures = Enum.GetNames(typeof(StockMeasure)).ToList();
+            measures = new ObservableCollection<string>(Enum.GetNames(typeof(StockMeasure)).ToList());
             measures.Insert(0, ALL_STOCK_MEASURE);
             SelectedMeasure = measures[0];
-            StockSummaryDtos = stockDao.GetStockSummary(StockName, null);
+            StockSummaryDtos = new ObservableCollection<StockSummaryDto>(stockDao.GetStockSummary(StockName, null));
         }
 
-        public List<StockSummaryDto> StockSummaryDtos
+        public ObservableCollection<StockSummaryDto> StockSummaryDtos
         {
             get { return stockSummaryDtos; }
             set { stockSummaryDtos = value; OnPropertyChanged(nameof(StockSummaryDtos)); }
@@ -57,7 +55,7 @@ namespace goods.ViewModels
             set { stockName = value; OnPropertyChanged(nameof(StockName)); }
         }
 
-        public List<string> Measures
+        public ObservableCollection<string> Measures
         {
             get { return measures; }
         }
@@ -70,8 +68,8 @@ namespace goods.ViewModels
 
         private void Search()
         {
-            StockSummaryDtos = stockDao.GetStockSummary(StockName, 
-                SelectedMeasure.Equals(ALL_STOCK_MEASURE) ? null : SelectedMeasure);
+            StockSummaryDtos = new ObservableCollection<StockSummaryDto>(stockDao.GetStockSummary(StockName, 
+                SelectedMeasure.Equals(ALL_STOCK_MEASURE) ? null : SelectedMeasure));
         }
 
         private void CreateExcelFile()
