@@ -34,7 +34,7 @@ namespace Goods.ViewModels
             deliveryDao = new DeliveryDao();
             StockName = "Олио";
             DeliveryDate = DateTime.Now;
-            DeliveriesOilDto = new ObservableCollection<DeliveryOilDto>(deliveryDao.GetDeliveryOilDtos(StockName, DeliveryDate, 0));
+            Search();
         }
 
         public ObservableCollection<DeliveryOilDto> DeliveriesOilDto
@@ -110,7 +110,7 @@ namespace Goods.ViewModels
                         ew.Cells[$"B{i}"].Value = delivery.StockName;
                         ew.Cells[$"C{i}"].Value = delivery.PriceVAT;
                         ew.Cells[$"D{i}"].Value = delivery.QuantityValue;
-                        ew.Cells[$"E{i}"].Value = $"{delivery.DeliveryDate:d}";
+                        ew.Cells[$"E{i}"].Value = $"{delivery.DeliveryDate:g}";
                     }
 
                     excelPackage.Save();

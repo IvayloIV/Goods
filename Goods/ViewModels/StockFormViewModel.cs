@@ -42,11 +42,11 @@ namespace Goods.ViewModels
             SelectedMeasure = measures[0];
             Stock = new Stock();
             Stock.CreationDate = DateTime.Now;
-            UpdateStockValus(ADD_NEW_STOCK);
+            UpdateStockValues(ADD_NEW_STOCK);
             LabelText = Enum.GetName(typeof(OperationType), OperationType.Създаване);
         }
 
-        private void UpdateStockValus(string defaultValue)
+        private void UpdateStockValues(string defaultValue)
         {
             StockValues = new ObservableCollection<string>(stockDao.GetAll().Select(a => $"{a.Id} - {a.Name}").ToList());
             StockValues.Insert(0, ADD_NEW_STOCK);
@@ -133,7 +133,7 @@ namespace Goods.ViewModels
                 if (!selectedStockValue.Equals(ADD_NEW_STOCK))
                 {
                     stockDao.Update(Stock);
-                    UpdateStockValus($"{Stock.Id} - {Stock.Name}");
+                    UpdateStockValues($"{Stock.Id} - {Stock.Name}");
                     SuccessMessage = "Успешно редактирахте стоката!";
                 }
                 else

@@ -15,7 +15,7 @@ namespace Goods.Models
         private long providerId;
         private long documentNumber;
         private DateTime deliveryDate;
-        private int quantity;
+        private double quantity;
         private Stock stock;
         private Provider provider;
 
@@ -50,7 +50,7 @@ namespace Goods.Models
         }
 
         [Column("quantity")]
-        public int Quantity
+        public double Quantity
         {
             get { return quantity; }
             set { quantity = value; OnPropertyChanged(nameof(Quantity)); }

@@ -16,11 +16,11 @@ create table provider (
 );
 
 create table delivery (
-	stock_id bigserial,
-	provider_id bigserial,
+	stock_id bigint,
+	provider_id bigint,
 	document_number bigint not null check(document_number > 0),
-	delivery_date date not null,
-	quantity bigint not null check(quantity > 0),
+	delivery_date timestamp not null,
+	quantity real not null check(quantity > 0),
 	primary key(stock_id, provider_id),
 	foreign key(stock_id) references stock(id),
 	foreign key(provider_id) references provider(id)
@@ -44,13 +44,13 @@ values
 
 insert into delivery (stock_id, provider_id, delivery_date, document_number, quantity)
 values 
-	(1, 2, current_date - 1, 103, 2),
-	(1, 3, current_date - 2, 104, 3),
-	(1, 4, current_date - 3, 105, 5),
-	(1, 5, current_date - 4, 106, 22),
-	(2, 1, current_date - 5, 107, 11),
-	(2, 2, current_date - 6, 108, 23),
-	(3, 1, current_date - 7, 109, 55),
-	(4, 3, current_date - 8, 110, 32),
-	(5, 5, current_date - 9, 111, 7),
-	(5, 2, current_date - 10, 112, 6);
+	(1, 2, now() - interval '1 day', 103, 2),
+	(1, 3, now() - interval '2 day', 104, 3),
+	(1, 4, now() - interval '3 day', 105, 5),
+	(1, 5, now() - interval '4 day', 106, 22),
+	(2, 1, now() - interval '5 day', 107, 11),
+	(2, 2, now() - interval '6 day', 108, 23),
+	(3, 1, now() - interval '7 day', 109, 55),
+	(4, 3, now() - interval '8 day', 110, 32),
+	(5, 5, now() - interval '9 day', 111, 7),
+	(5, 2, now() - interval '10 day', 112, 6);
